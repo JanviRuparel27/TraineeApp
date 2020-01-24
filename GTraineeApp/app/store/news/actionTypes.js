@@ -1,4 +1,0 @@
-// News 
-export const NEWS_FETCH_REQUEST = 'NEWS_FETCH_REQUEST';
-export const NEWS_FETCH_SUCCESS = 'NEWS_FETCH_SUCCESS';
-export const NEWS_FETCH_FAIL = 'NEWS_FETCH_FAIL';
