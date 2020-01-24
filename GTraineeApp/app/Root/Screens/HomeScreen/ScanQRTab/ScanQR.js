@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Container, Content } from "native-base";
+import { Container, Content, Toast } from "native-base";
 import { MainHeader } from "app/Component";
 import { notificaiton, left } from 'app/assets'
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
@@ -44,7 +44,7 @@ class ScanQR extends Component {
                     if (res.data) {
                         if (res.data.response.data.is_already_in == true) {
                             // alert(res.data.response.data.message)
-                            Toast.show({
+                                Toast.show({
                                 text: res.data.response.data.message,
                                 position: "bottom",
                                 type: "success",
@@ -54,11 +54,11 @@ class ScanQR extends Component {
                         } else {
                             // alert(res.data.response.data.message)
                             Toast.show({
-                                text: res.data.response.data.message,
-                                position: "bottom",
-                                type: "success",
-                                duration: 3000
-                              })
+                            text: res.data.response.data.message,
+                            position: "bottom",
+                            type: "success",
+                            duration: 3000
+                          })
                             this.props.navigation.goBack()
                         }
                     } else {

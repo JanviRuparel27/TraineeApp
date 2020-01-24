@@ -11,7 +11,7 @@ import KeyboardManager, { PreviousNextView } from 'react-native-keyboard-manager
 const store = configureStore();
 
 /* Default values */
-KeyboardManager.setEnable(true);
+// KeyboardManager.setEnable(true);
 
 API.getInstance().build(DevelopmentMode.DEVELOPMENT, apiConfig);
 const App = () => (
