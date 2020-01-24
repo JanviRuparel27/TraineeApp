@@ -5,16 +5,16 @@ import {TextView} from "app/Component";
 import PropTypes from "prop-types";
 import {color} from "app/Theme";
 import cs from 'app/CommonStyle'
-// import KeyboardManager, { PreviousNextView } from 'react-native-keyboard-manager'
+import KeyboardManager, { PreviousNextView } from 'react-native-keyboard-manager'
 
 class EditTextView extends React.PureComponent {
     constructor(props) {
         super(props);
     }
     componentDidMount(): void {
-        // if (Platform.OS === 'ios') {
-        //     KeyboardManager.setToolbarPreviousNextButtonEnable(true);
-        // }
+        if (Platform.OS === 'ios') {
+            KeyboardManager.setToolbarPreviousNextButtonEnable(true);
+        }
     }
     render() {
         const {onPress, label, labelStyle, inputStyle, rightIcon, rightIconClick, disable, value, ...props} = this.props;

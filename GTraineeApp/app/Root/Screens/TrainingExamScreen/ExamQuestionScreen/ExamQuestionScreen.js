@@ -71,7 +71,9 @@ class ExamQuestionScreen extends Component {
                         }
                         else{
                             this.setState({
-                                noDataFound: true,
+                                //noDataFound: true,
+                                questions: res.data.response.data.questions,
+                                totalQuestion:res.data.response.data.questions.length,
                                 startExam: false,
                                 isLoading:false
                             })

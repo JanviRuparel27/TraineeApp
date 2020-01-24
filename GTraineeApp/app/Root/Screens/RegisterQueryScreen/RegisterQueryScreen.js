@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Container, Content, Footer, Button } from "native-base";
+import { Container, Content, Footer, Button, Toast } from "native-base";
 import { MainHeader } from "app/Component";
 import { notificaiton, left } from 'app/assets'
 import { View, Text, TextInput } from "react-native";
@@ -47,7 +47,13 @@ class RegisterQueryScreen extends Component {
                 SuccessCallback: res => {
                     //console.log(res)
                     if (res.data) {
-                        alert(res.data.response.data.message)
+                        //alert(res.data.response.data.message)
+                        Toast.show({
+                            text: res.data.response.data.message,
+                            position: "bottom",
+                            type: "success",
+                            duration: 3000
+                          })
                         this.props.navigation.navigate('HomeScreen')
                     } else {
                         alert('something went wrong')
@@ -98,7 +104,6 @@ class RegisterQueryScreen extends Component {
                         placeholder="Enter Your query here..."
                         multiline
                         numberOfLines={3}
-                        maxLength={40}
                         onChangeText={this.handleTextChange}
                     />
                 </View>

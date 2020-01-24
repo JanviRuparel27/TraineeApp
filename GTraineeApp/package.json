@@ -28,6 +28,7 @@
     "react-native-firebase": "^5.6.0",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-gtlcomponent": "^1.0.31",
+    "react-native-keyboard-manager": "^4.0.13-16",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-material-menu": "^1.0.0",
     "react-native-modal-datetime-picker": "^7.6.1",
