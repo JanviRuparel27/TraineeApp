@@ -47,6 +47,8 @@ export const endPoints = {
   ChangePassword: { endpoint: "/ChangePassword", method: 'POST'},
   BuildVersionCheck: { endpoint: "/versions", method: 'GET'},
   ForgotPassword: { endpoint: "/ForgotPassword", method: 'POST'},
+  FeedbackQuestion: { endpoint: "/getFeedback", method: 'GET'},
+  UserGeneralFeedback: {endpoint: "/UserFeedback", method: 'POST'}
 };
 
 

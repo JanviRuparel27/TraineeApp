@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     },
     startButtonStyle: {
         alignSelf: 'center',
-        width: '40%',
+        width: '90%',
         backgroundColor: color._018CCA,
     },
     viewButtonStyle: {
@@ -46,6 +46,14 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: 'gray'
+    },
+    textareaStyle: {
+        textAlignVertical: 'top',
+        fontSize: 18 ,
+        marginTop: 20,
+        height: 90,
+        borderColor: 'gray',
+        borderWidth: 1 
     }
 });
 

@@ -43,10 +43,22 @@ class ScanQR extends Component {
                     //console.log(res)
                     if (res.data) {
                         if (res.data.response.data.is_already_in == true) {
-                            alert(res.data.response.data.message)
-                            this.props.navigation.navigate('FeedbackScreen' , {feedbackData : params})
+                            // alert(res.data.response.data.message)
+                            Toast.show({
+                                text: res.data.response.data.message,
+                                position: "bottom",
+                                type: "success",
+                                duration: 3000
+                              })
+                            this.props.navigation.navigate('GeneralFeedbackScreen' , {feedbackData : params})
                         } else {
-                            alert(res.data.response.data.message)
+                            // alert(res.data.response.data.message)
+                            Toast.show({
+                                text: res.data.response.data.message,
+                                position: "bottom",
+                                type: "success",
+                                duration: 3000
+                              })
                             this.props.navigation.goBack()
                         }
                     } else {

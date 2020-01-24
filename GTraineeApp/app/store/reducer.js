@@ -17,6 +17,8 @@ import feedback from './Feedback'
 import sendMail from './sendMail'
 import vendorList from './VendorList'
 import version from './version'
+import getFeedbackQuestion from './getFeedbackQuestion'
+import userGeneralFeedback from './userGeneralFeedback'
 
 export default combineReducers({
     login,
@@ -35,6 +37,8 @@ export default combineReducers({
     feedback,
     sendMail,
     vendorList,
-    version
+    version,
+    getFeedbackQuestion,
+    userGeneralFeedback
 })
 
