@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">813140135457-k3s78la9r08i4np9brul2nkjp3omrc5v.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://gtraineeapp.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">813140135457</string>
+    <string name="google_api_key" translatable="false">AIzaSyCBP2-pdA98P0oYIuYj_H9VcNDQSSyJ3vA</string>
+    <string name="google_app_id" translatable="false">1:813140135457:android:4411279ec90d46af8b9d60</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCBP2-pdA98P0oYIuYj_H9VcNDQSSyJ3vA</string>
+    <string name="google_storage_bucket" translatable="false">gtraineeapp.appspot.com</string>
+    <string name="project_id" translatable="false">gtraineeapp</string>
+</resources>
