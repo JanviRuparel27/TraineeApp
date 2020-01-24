@@ -103,7 +103,7 @@ class AssesmentList extends Component {
                 }}
             />
             <Tabs tabBarUnderlineStyle={styles.tabStyle} onChangeTab={this.handleTabChange}>
-                <Tab heading={'Training'} 
+                <Tab heading={'Assesments'} 
                     tabStyle={styles.tabBlockStyle}
                     textStyle={styles.textStyle}
                     activeTabStyle={styles.activeTabStyle}

@@ -48,6 +48,8 @@ target 'GTApp' do
 
   #pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
+  pod 'ReactNativeKeyboardManager', :path => '../node_modules/react-native-keyboard-manager'
+
   target 'GTAppTests' do
     inherit! :search_paths
     # Pods for testing

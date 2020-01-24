@@ -10,7 +10,8 @@ import PinView from 'app/Component/PinView';
 
 class PinViewScreen extends Component {
     handleOtp = (otp) => {
-        alert(otp)
+        //alert(otp+"alert")
+        this.props.navigation.navigate('ChangePasswordScreen',{"isForgot":true})
     }
     render() {
         return (

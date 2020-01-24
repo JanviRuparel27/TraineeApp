@@ -85,6 +85,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.0):
     - GoogleUtilities/Logger
+  - IQKeyboardManager (4.0.13)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -308,6 +309,10 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
+  - ReactNativeKeyboardManager (4.0.13-16):
+    - IQKeyboardManager (= 4.0.13)
+    - React
+    - React-RCTText
   - RNCAsyncStorage (1.7.1):
     - React
   - RNDeviceInfo (5.4.0):
@@ -362,6 +367,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - ReactNativeKeyboardManager (from `../node_modules/react-native-keyboard-manager`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
@@ -386,6 +392,7 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - IQKeyboardManager
     - nanopb
     - PromisesObjC
 
@@ -448,6 +455,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeKeyboardManager:
+    :path: "../node_modules/react-native-keyboard-manager"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNDeviceInfo:
@@ -483,6 +492,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 574a983e829327d7c18f2627f65d9e80164ea8a4
   GoogleDataTransportCCTSupport: cad3cd6cdbdbad6b5c2c9206ec413402755faaaa
   GoogleUtilities: f8de7ddf8c706f58e9b405d53e38bbdaa2731e5a
+  IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Permission-Camera: a28ff1c93cf77777df695eb632855fad6e155b02
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
@@ -509,6 +519,7 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
+  ReactNativeKeyboardManager: b657632ca39d78a409949835d92fc3bed537c826
   RNCAsyncStorage: 8539fc80a0075fcc9c8e2dff84cd22dc5bf1dacf
   RNDeviceInfo: d0fff8432ccdf276cb342a52e665ea6dd311472e
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
@@ -517,6 +528,6 @@ SPEC CHECKSUMS:
   RNPermissions: 409e55ed060f7e35d4a3dfc3a336f94a5811dec1
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 4dec0a4302f99dab266d1ad4c2ec80bf9e6bb33e
+PODFILE CHECKSUM: 12aac82a1510f673e8b3645eaa81d9b2407fbc86
 
 COCOAPODS: 1.8.4

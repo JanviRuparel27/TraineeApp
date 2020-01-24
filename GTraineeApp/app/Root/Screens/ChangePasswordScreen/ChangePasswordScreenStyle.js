@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         width: '100%',
         backgroundColor: color._018CCA,
-        height:'15%',
+        height: hp('4%'),
         marginTop:hp('5%'),
     }
 });

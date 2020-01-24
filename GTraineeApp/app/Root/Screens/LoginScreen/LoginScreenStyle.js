@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         paddingBottom: 2,
     },
     rightTextStyle:{
-        fontSize: wp('2%'),
+        fontSize: wp('3%'),
         color:color._018CCA,
         fontWeight:'bold',
         paddingBottom:hp('7%'),
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
         marginRight:wp('10%')
     },
     modalTextStyle:{
-        margin:wp('2%'), 
+        margin:30, 
         textAlign:'center',
-        fontSize: wp('2.5%'),
+        fontSize: wp('3.5%'),
         color:color._018CCA,
         fontWeight:'bold'
     },

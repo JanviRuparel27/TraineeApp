@@ -1,7 +1,7 @@
 import { Image, Platform, TouchableOpacity, View, BackHandler, Alert, Modal } from "react-native";
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import { Button, Container, Content, Footer, Spinner, Text } from "native-base";
+import { Button, Container, Content, Footer, Spinner, Text, Toast } from "native-base";
 import styles from "./LoginScreenStyle";
 import { EditTextView, TextView, Loader } from "app/Component";
 import { Gtrainee } from "app/assets";
@@ -151,7 +151,7 @@ class LoginScreen extends Component {
         return true;
     }
 
-    handlePopupSubmit = () => {
+    handlePopupSubmit = async() => {
         //alert(this.state.phonenumber)
         //this.setModalVisible(!this.state.modalVisible)
         const validPhoneNumber = phonenumberValidate(this.state.phonenumber)
@@ -166,14 +166,22 @@ class LoginScreen extends Component {
             }
             this.props.forgotPassword(params, this.props, forgotPassHeader,{
                 SuccessCallback: res => {
-                    console.log(res)
-                    this.setState({
-                        phonenumber:''
-                    })
+                    //console.log(res)
+                   
+                    if(res.data.response.data){
+                        AsyncStorage.setItem('Token', res.data.response.data.token)
+                        AsyncStorage.setItem('UserId', JSON.stringify(res.data.response.data.id))
+                        AsyncStorage.setItem('UserEmail', res.data.response.data.email)
+                        this.setState({
+                            phonenumber:''
+                        })
                     this.props.navigation.navigate("PinViewScreen")
+                    }else{
+                       alert('something went wrong')
+                    }
                 },
                 FailureCallback: res => {
-                    alert('Something went wrong!')
+                    alert(JSON.stringify(res.data.response.data))
                 }
             })
 
@@ -182,7 +190,7 @@ class LoginScreen extends Component {
             // })
             // this.props.navigation.navigate("PinViewScreen")
         }else{
-            alert("fail")
+            alert("Enter mobile number")
         }
     }
 
