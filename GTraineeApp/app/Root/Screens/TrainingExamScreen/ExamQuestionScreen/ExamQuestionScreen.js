@@ -68,11 +68,12 @@ class ExamQuestionScreen extends Component {
                     if (res.data) {
                         if(res.data.response.data.show_result == true){
                             this.setState({
-                                questions: res.data.response.data.questions,
+                                questions1: res.data.response.data.questions,
                                 totalQuestion:res.data.response.data.questions.length,
                                 totalTakenTime:res.data.response.data.taken_time,
                                 totalQuestions:res.data.response.data.total_questions,
                                 totalAttempted:res.data.response.data.total_attempted,
+                                totalCorrectAns:res.data.response.data.total_correct_ans,
                                 isLoading:false
                             })
                         }
@@ -258,7 +259,7 @@ class ExamQuestionScreen extends Component {
     }
 
     render() {
-        const {noDataFound,questions, isLoading , startExam, instructions, totalTakenTime, totalQuestions, totalAttempted} = this.state;
+        const {noDataFound,questions, isLoading , startExam, instructions, totalTakenTime, totalQuestions,questions1, totalAttempted, totalCorrectAns} = this.state;
         // const timer = this.props.navigation.state.params.time;
         const result = this.props.navigation.state.params.result
         if(!result){
@@ -349,12 +350,12 @@ class ExamQuestionScreen extends Component {
                          this.props.loading ? <Loader /> :
                             noDataFound ? <NoDataFoundView navigation={this.props.navigation} /> :
                             <View>
+                                <TextView style={styles.fontStyle}>{'Total correct Ans :'}<TextView style={styles.fontStyle1}>{totalCorrectAns}</TextView></TextView>
                                 <TextView style={styles.fontStyle}>{'Total Attempted: '}<TextView style={styles.fontStyle1}>{totalAttempted}</TextView></TextView>
                                 <TextView style={styles.fontStyle}>{'Total Questions: '}<TextView style={styles.fontStyle1}>{totalQuestions}</TextView></TextView>
                                 <TextView style={styles.fontStyle}>{'Taken Time :'}<TextView style={styles.fontStyle1}>{totalTakenTime}</TextView></TextView>
-
                                 <FlatList
-                                    data={questions}
+                                    data={questions1}
                                     contentContainerStyle={{ paddingBottom: 150 }}
                                     contentInsetAdjustmentBehavior="automatic"
                                     contentInset={{top: 0, bottom: 20, left: 0, right: 0}}
