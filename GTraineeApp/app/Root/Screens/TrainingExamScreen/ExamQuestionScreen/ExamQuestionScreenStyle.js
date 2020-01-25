@@ -46,6 +46,15 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: 'gray'
+    },
+    fontStyle:{
+        fontSize:wp('3.5%'),
+        margin:10
+    },
+    fontStyle1:{
+        color:color._018CCA,
+        fontSize:wp('3.5%'),
+        margin:10
     }
 });
 

@@ -11,7 +11,7 @@ export const ToastType = {
 export const ToastPosition = {
     TOP: 'top'
 };
-export const showToast = (message, type?, position='top') => {
+export const showToast = (message, type?, position='bottom') => {
     Toast.show({text: message, position: position, type: type,duration: 3000})
 };
 

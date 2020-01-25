@@ -12,6 +12,8 @@ import NoDataFoundView from 'app/Component/NoDataFoundView';
 import moment from 'moment';
 import TimerCountdown from './Timer/TimerCountdown';
 import {answerSubmit} from 'app/store/answerSubmit'
+import {showToast, ToastType} from "app/Utils";
+import {TextView} from 'app/Component';
 let counter = 0
 
 class ExamQuestionScreen extends Component {
@@ -31,7 +33,9 @@ class ExamQuestionScreen extends Component {
             assesmentId:null,
             trainingId:null,
             instructions:null,
-            isLoading:true
+            isLoading:true,
+            taken_time:null,
+            totalTakenTime:null
         }
     }
     UNSAFE_componentWillMount = async () => {
@@ -66,6 +70,9 @@ class ExamQuestionScreen extends Component {
                             this.setState({
                                 questions: res.data.response.data.questions,
                                 totalQuestion:res.data.response.data.questions.length,
+                                totalTakenTime:res.data.response.data.taken_time,
+                                totalQuestions:res.data.response.data.total_questions,
+                                totalAttempted:res.data.response.data.total_attempted,
                                 isLoading:false
                             })
                         }
@@ -73,6 +80,7 @@ class ExamQuestionScreen extends Component {
                             this.setState({
                                 //noDataFound: true,
                                 questions: res.data.response.data.questions,
+                                totalTakenTime:res.data.response.data.taken_time,
                                 totalQuestion:res.data.response.data.questions.length,
                                 startExam: false,
                                 isLoading:false
@@ -148,6 +156,9 @@ class ExamQuestionScreen extends Component {
             "m": minutes,
             "s": seconds
           };
+        this.setState({
+            taken_time:hours+":"+minutes+":"+seconds
+        })
 
         let totalAttemptedQuestion = this.state.answerArr.length
         //console.log(hr+ " "+min+" "+ seconds)
@@ -193,7 +204,8 @@ class ExamQuestionScreen extends Component {
             "user_id": getUserId,
             "training_id": this.state.trainingId, 
             "assessment_id": this.state.assesmentId,
-            "questions": this.state.answerArr
+            "questions": this.state.answerArr,
+            "taken_time":this.state.taken_time,
             }
 
             this.props.answerSubmit(params, this.props, ansSubmitHeader, {
@@ -207,7 +219,8 @@ class ExamQuestionScreen extends Component {
                         //     ]
                         //   );
                         if(res.data.response.data.message){
-                            alert(res.data.response.data.message)
+                            //alert(res.data.response.data.message)
+                            showToast(res.data.response.data.message, ToastType.SUCCESS);
                             this.props.navigation.navigate('ResultScreen',{params:resultObj})
                         }
                     } else {
@@ -245,7 +258,7 @@ class ExamQuestionScreen extends Component {
     }
 
     render() {
-        const {noDataFound,questions, isLoading , startExam, instructions} = this.state;
+        const {noDataFound,questions, isLoading , startExam, instructions, totalTakenTime, totalQuestions, totalAttempted} = this.state;
         // const timer = this.props.navigation.state.params.time;
         const result = this.props.navigation.state.params.result
         if(!result){
@@ -308,12 +321,16 @@ class ExamQuestionScreen extends Component {
                         : 
                         isLoading ? <Loader /> :
                         noDataFound ? null :
+                        totalTakenTime==null ? 
                         <View style={{flex:1,display:'flex' , alignItems:'center' , justifyContent:'center'}}>
                             <Button full
                                 onPress={this.handleStartExamClick}
                                 style={styles.startButtonStyle} ><Text style={{ color: 'white' , fontSize: 22 }} > {'Start Exam'} </Text></Button>
                         </View>
-                          
+                          :
+                          <View style={{flex:1,display:'flex' , alignItems:'center' , justifyContent:'center'}}>
+                                <TextView style={styles.testNameStyle} >{'You have already submitted test.'}</TextView>
+                          </View>
                     }
     
                
@@ -323,7 +340,7 @@ class ExamQuestionScreen extends Component {
         else{
             return(
                 <Container>
-                    <MainHeader leftIcon={left} bodyContent={'Assesment Result'}
+                    <MainHeader leftIcon={left} bodyContent={'Assessment Result'}
                             backAction={() => {
                                 this.props.navigation.goBack()
                             }}
@@ -331,12 +348,21 @@ class ExamQuestionScreen extends Component {
                      {
                          this.props.loading ? <Loader /> :
                             noDataFound ? <NoDataFoundView navigation={this.props.navigation} /> :
+                            <View>
+                                <TextView style={styles.fontStyle}>{'Total Attempted: '}<TextView style={styles.fontStyle1}>{totalAttempted}</TextView></TextView>
+                                <TextView style={styles.fontStyle}>{'Total Questions: '}<TextView style={styles.fontStyle1}>{totalQuestions}</TextView></TextView>
+                                <TextView style={styles.fontStyle}>{'Taken Time :'}<TextView style={styles.fontStyle1}>{totalTakenTime}</TextView></TextView>
+
                                 <FlatList
                                     data={questions}
+                                    contentContainerStyle={{ paddingBottom: 150 }}
+                                    contentInsetAdjustmentBehavior="automatic"
+                                    contentInset={{top: 0, bottom: 20, left: 0, right: 0}}
                                     renderItem={({ item }) =>
                                         <ItemView item={item} result={true}/>
                                     }
                                 />
+                            </View>
                     }
                 </Container>
             )

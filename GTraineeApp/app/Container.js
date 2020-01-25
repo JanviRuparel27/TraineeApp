@@ -14,10 +14,17 @@ class Containers extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isConnected: true
+            isConnected: true,
         }
 
     }
+
+
+    // //New 
+    // validatePhoneNumber = () => {
+    //     var regexp = /^\+[0-9]?()[0-9](\s|\S)(\d[0-9]{8,16})$/
+    //     return regexp.test(this.state.phone)
+    //   }
 
     async componentDidMount() {
         this.checkPermission();
@@ -43,8 +50,24 @@ class Containers extends Component {
     //3
     async getToken() {
         let fcmToken = await AsyncStorage.getItem('fcmToken');
-        console.log('fcmToken')
-        console.log(fcmToken)
+        //console.log('fcmToken')
+        //console.log(fcmToken)
+        // if (this.validatePhoneNumber()) {
+        //     firebase
+        //       .auth()
+        //       .signInWithPhoneNumber(this.state.phone)
+        //       .then(confirmResult => {
+        //         this.setState({ confirmResult })
+        //         alert(JSON.stringify(confirmResult))
+        //       })
+        //       .catch(error => {
+        //         alert(error.message)
+        
+        //         console.log(error)
+        //       })
+        //   } else {
+        //     alert('Invalid Phone Number')
+        //   }
         if (!fcmToken) {
             fcmToken = await firebase.messaging().getToken();
             if (fcmToken) {

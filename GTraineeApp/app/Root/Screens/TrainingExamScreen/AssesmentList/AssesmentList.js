@@ -97,13 +97,13 @@ class AssesmentList extends Component {
         const {noDataFound,assesmentListArr, isLoading,assesmentResultListArr} = this.state;
         return (
             <Container>
-            <MainHeader leftIcon={left} bodyContent={'Training assesment'}
+            <MainHeader leftIcon={left} bodyContent={'Training assessment'}
                 backAction={() => {
                     this.props.navigation.goBack()
                 }}
             />
             <Tabs tabBarUnderlineStyle={styles.tabStyle} onChangeTab={this.handleTabChange}>
-                <Tab heading={'Assesments'} 
+                <Tab heading={'Assessments'} 
                     tabStyle={styles.tabBlockStyle}
                     textStyle={styles.textStyle}
                     activeTabStyle={styles.activeTabStyle}
