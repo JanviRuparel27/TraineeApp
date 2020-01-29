@@ -141,7 +141,8 @@ class Dashboard extends Component {
                     style: 'cancel',
                   },
                   {text: 'OK', onPress: () => {
-                    AsyncStorage.clear();
+                    // AsyncStorage.clear();
+                    AsyncStorage.removeItem('Token');
                     this.props.navigation.navigate('LoginScreen')
                   }
                 },
@@ -150,7 +151,8 @@ class Dashboard extends Component {
               );
         }
         else{
-            AsyncStorage.clear();
+            // AsyncStorage.clear();
+            AsyncStorage.removeItem('Token');
             this.props.navigation.navigate('LoginScreen')
         }
     }

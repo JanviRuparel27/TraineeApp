@@ -12,7 +12,7 @@ export default class BeverageItemView extends Component {
     }
 
     render() {
-        const {item, selectedValue, teatime1,tea1, tea2,teatime2} = this.props;
+        const {item, selectedValue, teatime1,tea1, tea2,teatime2 , breakfastFlag , breakfastTime} = this.props;
         return (
             // <TouchableOpacity style={styles.container} onPress={() => {
             //     this.props.onItemClick && this.props.onItemClick(item)
@@ -34,7 +34,7 @@ export default class BeverageItemView extends Component {
                 >
                         <Thumbnail small square source={item.image} style={{tintColor: color._018CCA}}/>
                         <Text style={styles.textStyle} numberOfLines={1}>{item.title}</Text>
-                        <Image source={iconScanned} style={{position:'absolute', height:200, width:200, resizeMode: 'contain'}}/>
+                        <Image source={iconScanned} style={{position:'absolute', height:120, width:120, resizeMode: 'contain'}}/>
                         <Text style={styles.textStyle1}>{teatime1}</Text>
 
                 </Card> 
@@ -50,11 +50,26 @@ export default class BeverageItemView extends Component {
                 >
                         <Thumbnail small square source={item.image} style={{tintColor: color._018CCA}}/>
                         <Text style={styles.textStyle} numberOfLines={1}>{item.title}</Text>
-                        <Image source={iconScanned} style={{position:'absolute', height:200, width:200, resizeMode: 'contain'}}/>
+                        <Image source={iconScanned} style={{position:'absolute', height:120, width:120, resizeMode: 'contain'}}/>
                         <Text style={styles.textStyle1}>{teatime2}</Text>
 
                 </Card> 
                 </TouchableOpacity>
+                :
+                item.title == breakfastFlag ?
+
+                <TouchableOpacity style={styles.container}>
+                <Card 
+                style={styles.selectedcard}
+                >
+                        <Thumbnail small square source={item.image} style={{tintColor: color._018CCA}}/>
+                        <Text style={styles.textStyle} numberOfLines={1}>{item.title}</Text>
+                        <Image source={iconScanned} style={{position:'absolute', height:120, width:120, resizeMode: 'contain'}}/>
+                        <Text style={styles.textStyle1}>{breakfastTime}</Text>
+
+                </Card> 
+                </TouchableOpacity>
+                
                 :
                  <TouchableOpacity style={styles.container} onPress={() => {
                         this.props.onItemClick && this.props.onItemClick(item)
