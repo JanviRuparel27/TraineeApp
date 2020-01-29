@@ -185,6 +185,7 @@ class LoginScreen extends Component {
                         AsyncStorage.setItem('Token', res.data.response.data.token)
                         AsyncStorage.setItem('UserId', JSON.stringify(res.data.response.data.id))
                         AsyncStorage.setItem('UserEmail', res.data.response.data.email)
+                        AsyncStorage.setItem('UserMobNumber', `+91${this.state.phonenumber}`)
                         this.setState({
                             phonenumber:''
                         })
@@ -223,9 +224,9 @@ class LoginScreen extends Component {
                             onChangeText={(text) => {
                                 this.setState({ password: text })
                             }} />
-                        {/* <TouchableOpacity onPress={this.handleForgotPassword} style={{ alignItems: 'flex-end' }}>
+                        <TouchableOpacity onPress={this.handleForgotPassword} style={{ alignItems: 'flex-end' }}>
                             <TextView style={styles.rightTextStyle}>{'Forgot Password?'}</TextView>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
 
                         {this.props.loading ? <Loader loading={this.props.loading} /> :
                             <Button onPress={this.handleLoginSubmit} full rounded

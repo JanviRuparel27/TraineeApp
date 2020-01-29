@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1000741562947",
+    "firebase_url": "https://g-trainee.firebaseio.com",
+    "project_id": "g-trainee",
+    "storage_bucket": "g-trainee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000741562947:android:05e6677795cb91e15c42f6",
+        "android_client_info": {
+          "package_name": "com.gtapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000741562947-19buaacufj11vea1fn6fuhiq3kfvt11d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gtapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1000741562947-e78sjm2qbkolmugaurb6pcfhm721rnr6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9HptQwd8WInEV51D4vcolnluW-eNjWww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000741562947-e78sjm2qbkolmugaurb6pcfhm721rnr6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

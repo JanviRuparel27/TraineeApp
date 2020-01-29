@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		141F309223E18F2C009920A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 141F309123E18F2C009920A8 /* GoogleService-Info.plist */; };
 		14E6D7E523C4589900E6FF5F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14E6D7E423C4589900E6FF5F /* Images.xcassets */; };
 		257EEC630E01452D921102F8 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53CE9C1FBF8A4AD680228FF7 /* Feather.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -69,6 +70,7 @@
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GTApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GTApp/main.m; sourceTree = "<group>"; };
+		141F309123E18F2C009920A8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		14E6D7E423C4589900E6FF5F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GTApp/Images.xcassets; sourceTree = "<group>"; };
 		1C68DAAE2D0048108C10AB5C /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/native-base/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		237ED5FD14A64937A479812A /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		13B07FAE1A68108700A75B9A /* GTApp */ = {
 			isa = PBXGroup;
 			children = (
+				141F309123E18F2C009920A8 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -421,6 +424,7 @@
 				93F9FD3820E5402E8346ECBF /* MaterialCommunityIcons.ttf in Resources */,
 				6EB2DDB1509847E68B26C386 /* MaterialIcons.ttf in Resources */,
 				6E3F5CAEAA304B02B04C98A8 /* Octicons.ttf in Resources */,
+				141F309223E18F2C009920A8 /* GoogleService-Info.plist in Resources */,
 				E9623989C383420290440EA1 /* Roboto_medium.ttf in Resources */,
 				50A40168DB8C46FFA326925A /* Roboto.ttf in Resources */,
 				CFFD5D592C62462787A48547 /* rubicon-icon-font.ttf in Resources */,

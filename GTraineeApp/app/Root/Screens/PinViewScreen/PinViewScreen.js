@@ -3,36 +3,60 @@ import { connect } from "react-redux";
 import { Container, Content } from "native-base";
 import { MainHeader } from "app/Component";
 import { notificaiton, left } from 'app/assets'
-import { View, Text } from "react-native";
+import { View, Text, Platform } from "react-native";
 import { TextView } from 'app/Component';
 import styles from './PinViewSceenStyle';
 import PinView from 'app/Component/PinView';
 import AsyncStorage from '@react-native-community/async-storage';
+import firebase from 'react-native-firebase'
+import { Loader } from "app/Component";
 
 class PinViewScreen extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
-            confirmResult:null
+            confirmResult:null,
+            isLoading:false
         }
     }
     
-   
+   async componentDidMount(){
+    // if(Platform.OS === 'android'){
+        var UserMobNumber = await AsyncStorage.getItem('UserMobNumber')
+        firebase.auth().signInWithPhoneNumber(UserMobNumber)
+        .then(confirmResult => this.setState({
+            confirmResult:confirmResult
+        }))
+        .catch(error => { alert(error.message) })
+    // }
+  
+   }
     handleOtp = async(otp) => {
-        //alert(otp+"alert")
-        //if(this.state.confirmResult!=null){
-            var confirmResult = AsyncStorage.getItem('ConfirmResult')
-            confirmResult.confirm(otp)
+        // var UserMobNumber = await AsyncStorage.getItem('UserMobNumber')
+        // alert(UserMobNumber)
+        // if(Platform.OS === 'android'){
+        this.setState({
+            isLoading:true
+        })
+        if(this.state.confirmResult!=null){
+            this.state.confirmResult.confirm(otp)
                     .then(user => {
                         //alert('opt is true')
+                        this.setState({
+                            isLoading:false
+                        })
                         this.props.navigation.navigate('ChangePasswordScreen', { "isForgot": true })
                     }
                     )
-                .catch(error => alert('opt is not true'))
-        //}
+                .catch(error => {
+                    this.setState({
+                        isLoading:false
+                    })
+                    alert('opt is not true')})
+        }
         //this.props.navigation.navigate('ChangePasswordScreen', { "isForgot": true })
-        
+        // }
     }
     render() {
         return (
@@ -52,6 +76,7 @@ class PinViewScreen extends Component {
                     </View>
 
                 </Content>
+                <Loader loading={this.state.isLoading} />
             </Container>
 
 
