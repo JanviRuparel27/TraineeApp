@@ -31,11 +31,15 @@ class BeverageScreen extends Component {
             teatime1:null,
             tea1:null,
             teatime2:null,
-            tea2:null
+            tea2:null,
+            breakfastFlag: null,
+            breakfastTime: null
         }
     }
 
     componentDidMount= async() => {
+        const breakfastFlag = await AsyncStorage.getItem('Breakfast');
+        const breakfastTime = await AsyncStorage.getItem('BreakfastTime');
         const teatime1 = await AsyncStorage.getItem('Tea1Time');
         const tea1 = await AsyncStorage.getItem('Tea1');
         const teatime2 = await AsyncStorage.getItem('Tea2Time');
@@ -45,7 +49,9 @@ class BeverageScreen extends Component {
             teatime1:teatime1,
             tea1:tea1,
             teatime2:teatime2,
-            tea2:tea2
+            tea2:tea2,
+            breakfastFlag: breakfastFlag,
+            breakfastTime: breakfastTime
         })
     }
     handleSelectClick = (item) => {
@@ -104,7 +110,7 @@ class BeverageScreen extends Component {
     }
     
     render() {
-        const { flatListData, flag, teaTime, radioSelected, selectedRadioName, tea1, teatime1, teatime2, tea2 } = this.state
+        const { flatListData, flag, teaTime, radioSelected, selectedRadioName, tea1, teatime1, teatime2, tea2 , breakfastFlag , breakfastTime } = this.state
         return (
             <Container style={styles.container}>
                 <MainHeader bodyContent={'Beverages'} leftIcon={left} 
@@ -126,7 +132,12 @@ class BeverageScreen extends Component {
                             data={flatListData}
                             renderItem={({ item }) =>
                                 <BeverageItemView 
-                                teatime1={teatime1} tea1={tea1} teatime2={teatime2} tea2={tea2}
+                                teatime1={teatime1} 
+                                tea1={tea1} 
+                                teatime2={teatime2} 
+                                tea2={tea2} 
+                                breakfastFlag={breakfastFlag} 
+                                breakfastTime={breakfastTime}
                                 item={item} selectedValue={flag} onItemClick={(e) => this.handleSelectClick(item)} />
                             }
                         />

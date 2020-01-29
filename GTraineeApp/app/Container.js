@@ -7,6 +7,7 @@ import { Loader, NoInternet } from "app/Component";
 import { Container } from 'native-base';
 import { AsyncStorage } from 'react-native';
 import firebase from 'react-native-firebase';
+import { dateFormate } from './Constants';
 
 class Containers extends Component {
     _subscription: NetInfoSubscription | null = null;
@@ -29,6 +30,21 @@ class Containers extends Component {
             this.props.noInternetConnected(state.isConnected)
         });
 
+        let todayDate = await AsyncStorage.getItem('TodaysDate');
+
+        if(todayDate !== null){
+            if(todayDate !== dateFormate(new Date())){
+                AsyncStorage.removeItem('Breakfast')
+                AsyncStorage.removeItem('BreakfastTime')
+                AsyncStorage.removeItem('Tea1')
+                AsyncStorage.removeItem('Tea1Time')
+                AsyncStorage.removeItem('Tea2')
+                AsyncStorage.removeItem('Tea2Time')
+            }
+        }
+        else{
+            AsyncStorage.setItem('TodaysDate' , dateFormate(new Date()));
+        }
     }
 
     async checkPermission() {
@@ -81,6 +97,8 @@ class Containers extends Component {
             console.log('permission rejected');
         }
     }
+
+   
 
     render() {
         return (

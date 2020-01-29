@@ -16,6 +16,7 @@ class QRScanner extends Component {
 
     onSuccess = async (e) => {
         var paramsData = this.props.navigation.state.params
+
         if (this.props.navigation.state.params == null) {
             var getToken = await AsyncStorage.getItem('Token');
             var getUserId = await AsyncStorage.getItem('UserId');
@@ -33,6 +34,18 @@ class QRScanner extends Component {
                     SuccessCallback: res => {
                         //console.log(res)
                         if (res.data) {
+                                // let start = new Date();
+                                // let hours = start.getHours(), minutes = start.getMinutes(), AMPM = ""
+                                // if (hours > 12) {
+                                //     AMPM = "PM"
+                                // } else {
+                                //     AMPM = "AM"
+                                // }
+                                // let time = hours + ":" + minutes + " " + AMPM
+                                let time = this.getTime(); 
+                                AsyncStorage.setItem('Breakfast', 'Breakfast');
+                                AsyncStorage.setItem('BreakfastTime', time);
+
                             if (res.data.response.data.message) {
                                 //alert("Taken Breakfast successfully!")
                                 showToast(res.data.response.data.message, ToastType.SUCCESS)
@@ -75,14 +88,8 @@ class QRScanner extends Component {
                         SuccessCallback: res => {
                             //console.log(res)
                             if (res.data) {
-                                let start = new Date();
-                                let hours = start.getHours(), minutes = start.getMinutes(), AMPM = ""
-                                if (hours > 12) {
-                                    AMPM = "PM"
-                                } else {
-                                    AMPM = "AM"
-                                }
-                                let time = hours + ":" + minutes + " " + AMPM
+                                let time = this.getTime(); 
+                              
                                 if (paramsData.data.Slot == 1) {
                                     AsyncStorage.setItem('Tea1', 'Tea/Coffee 1');
                                     AsyncStorage.setItem('Tea1Time', time);
@@ -151,6 +158,19 @@ class QRScanner extends Component {
                 this.props.navigation.navigate('BeverageScreen')
             }
         }
+    }
+
+    getTime = () => {
+        let start = new Date();
+        let hours = start.getHours(), minutes = start.getMinutes(), AMPM = ""
+        if (hours > 12) {
+            AMPM = "PM"
+        } else {
+            AMPM = "AM"
+        }
+        let time = hours + ":" + minutes + " " + AMPM
+
+        return time
     }
     // onSuccess = async (e) => {
     //     //console.log("success", e.data)
