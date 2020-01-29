@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { NavigationActions, StackActions } from "react-navigation";
 import { phonenumberValidate } from "app/Constants";
 import {forgotPassword} from 'app/store/forgotPassword'
+import firebase from 'react-native-firebase'
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -25,7 +26,8 @@ class LoginScreen extends Component {
             uid: '',
             error: '',
             modalVisible: false,
-            phonenumber: ''
+            phonenumber: '',
+            confirmResult:''
         }
     }
 
@@ -169,13 +171,24 @@ class LoginScreen extends Component {
                     //console.log(res)
                    
                     if(res.data.response.data){
+                        // firebase.auth().signInWithPhoneNumber('+919408282556')
+                        // .then(confirmResult => {
+                        //     //console.log(confirmResult)
+                        //     AsyncStorage.setItem('ConfirmResult', confirmResult)
+                        //     AsyncStorage.setItem('ConfirmResult', confirmResult)
+                        //     this.setState({
+                        //         confirmResult:confirmResult
+                        //     })
+                        //     }
+                        // )
+                        // .catch(error => alert('Maximum number reached. Try again later'))
                         AsyncStorage.setItem('Token', res.data.response.data.token)
                         AsyncStorage.setItem('UserId', JSON.stringify(res.data.response.data.id))
                         AsyncStorage.setItem('UserEmail', res.data.response.data.email)
                         this.setState({
                             phonenumber:''
                         })
-                    this.props.navigation.navigate("PinViewScreen")
+                        this.props.navigation.navigate("PinViewScreen")
                     }else{
                        alert('something went wrong')
                     }
@@ -210,9 +223,9 @@ class LoginScreen extends Component {
                             onChangeText={(text) => {
                                 this.setState({ password: text })
                             }} />
-                        <TouchableOpacity onPress={this.handleForgotPassword} style={{ alignItems: 'flex-end' }}>
+                        {/* <TouchableOpacity onPress={this.handleForgotPassword} style={{ alignItems: 'flex-end' }}>
                             <TextView style={styles.rightTextStyle}>{'Forgot Password?'}</TextView>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
                         {this.props.loading ? <Loader loading={this.props.loading} /> :
                             <Button onPress={this.handleLoginSubmit} full rounded

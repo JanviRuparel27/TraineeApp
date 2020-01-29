@@ -6,24 +6,26 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
-        // justifyContent: 'space-evenly',
-        flex: 1,
+        // justifyContent: 'space-between',
     },
     card: {
-        height: wp('30%'),
-        width: wp('30%'),
+        height: wp('35%'),
+        width: wp('35%'),
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 7,
-        backgroundColor:'white'
+        backgroundColor:'white',
+        marginRight: 7
     },
     selectedcard: {
-        height: wp('30%'),
-        width: wp('30%'),
+        height: wp('35%'),
+        width: wp('35%'),
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 7,
-        backgroundColor:color._DDDDDD
+        backgroundColor:color._DDDDDD,
+        marginRight: 7
+
     },
     innercard: {
         alignItems: 'center',
@@ -33,6 +35,10 @@ const styles = StyleSheet.create({
         marginTop: 12,
         color: color._018CCA
     },
+    textStyle1: {
+        marginTop: 45,
+        color: color._018CCA
+    }
 });
 
 export default styles;

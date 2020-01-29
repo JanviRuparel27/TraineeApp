@@ -19,6 +19,7 @@ import vendorList from './VendorList'
 import version from './version'
 import getFeedbackQuestion from './getFeedbackQuestion'
 import userGeneralFeedback from './userGeneralFeedback'
+import beverage from './beverage'
 
 export default combineReducers({
     login,
@@ -39,6 +40,7 @@ export default combineReducers({
     vendorList,
     version,
     getFeedbackQuestion,
-    userGeneralFeedback
+    userGeneralFeedback,
+    beverage
 })
 

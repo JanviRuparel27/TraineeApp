@@ -21,7 +21,8 @@ export default class ItemView extends Component {
 
     }
 
-    radioClick(item) {
+    radioClick(item, questionId) {
+        this.props.handleCount(item,questionId)
         this.setState({
             radioSelected: item.id,
         })
@@ -36,27 +37,27 @@ export default class ItemView extends Component {
         //     // console.log(counter)
         //     this.props.handleCount(counter)
         // }
-        if (ansArr.length > 0) {
-            // ansArr.find(item => item.question_id == this.state.question_id).answer_id = item.id
-            if (ansArr.some(e => e.question_id === this.state.question_id)) {
-                ansArr.find(item => item.question_id == this.state.question_id).answer_id = item.id
-                this.props.handleCount(ansArr)
-            } else {
-                const ansObj = {
-                    question_id: this.state.question_id,
-                    answer_id: item.id
-                }
-                ansArr.push(ansObj)
-                this.props.handleCount(ansArr)
-            }
-        } else {
-            const ansObj = {
-                question_id: this.state.question_id,
-                answer_id: item.id
-            }
-            ansArr.push(ansObj)
-            this.props.handleCount(ansArr)
-        }
+        // if (ansArr.length > 0) {
+        //     // ansArr.find(item => item.question_id == this.state.question_id).answer_id = item.id
+        //     if (ansArr.some(e => e.question_id === this.state.question_id)) {
+        //         ansArr.find(item => item.question_id == this.state.question_id).answer_id = item.id
+        //         this.props.handleCount(ansArr)
+        //     } else {
+        //         const ansObj = {
+        //             question_id: this.state.question_id,
+        //             answer_id: item.id
+        //         }
+        //         ansArr.push(ansObj)
+        //         this.props.handleCount(ansArr)
+        //     }
+        // } else {
+        //     const ansObj = {
+        //         question_id: this.state.question_id,
+        //         answer_id: item.id
+        //     }
+        //     ansArr.push(ansObj)
+        //     this.props.handleCount(ansArr)
+        // }
         //this.props.handleCount(ansArr)
 
     }
@@ -69,9 +70,9 @@ export default class ItemView extends Component {
         })
     }
 
-    componentWillUnmount() {
-        ansArr = []
-    }
+    // componentWillUnmount() {
+    //     ansArr = []
+    // }
 
     render() {
         const { item, result } = this.props;
@@ -83,11 +84,14 @@ export default class ItemView extends Component {
                         <View>
                             {
                                 item.ans_options.map((data, index) =>
-                                    <TouchableOpacity key={index} onPress={this.radioClick.bind(this, data)}>
+                                    <TouchableOpacity key={index} onPress={this.radioClick.bind(this, data,item.question_id )}>
                                         <View style={styles.innerView}>
                                             <View style={styles.outerCircle}>
                                                 {
-                                                    data.id == this.state.radioSelected ?
+                                                    // data.id == this.state.radioSelected  ?
+                                                    //     <View style={styles.innerCircle} />
+                                                    //     : null
+                                                    data.id == item.selectedAns_Id  ?
                                                         <View style={styles.innerCircle} />
                                                         : null
                                                 }

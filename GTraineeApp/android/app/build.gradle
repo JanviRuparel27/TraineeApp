@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -133,8 +133,9 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
-        versionCode 2
-        versionName "1.1.2"
+        versionCode 4
+        versionName "1.1.4"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -189,6 +190,9 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     //implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation "com.google.firebase:firebase-auth:17.0.0"
+    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+    implementation 'com.android.support:multidex:1.0.3'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

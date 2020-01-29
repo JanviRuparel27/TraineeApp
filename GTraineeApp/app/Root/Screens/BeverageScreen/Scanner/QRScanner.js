@@ -10,6 +10,7 @@ import { selectedBeverage } from 'app/store/beverage'
 import AsyncStorage from '@react-native-community/async-storage';
 import base64 from "react-native-base64";
 import { selectedBreakfast } from 'app/store/breakfast';
+import { showToast, ToastType } from "../../../../Utils";
 
 class QRScanner extends Component {
 
@@ -33,10 +34,12 @@ class QRScanner extends Component {
                         //console.log(res)
                         if (res.data) {
                             if (res.data.response.data.message) {
-                                alert("Taken Breakfast successfully!")
+                                //alert("Taken Breakfast successfully!")
+                                showToast(res.data.response.data.message, ToastType.SUCCESS)
                                 this.props.navigation.navigate('HomeScreen')
                             } else {
-                                alert(res.data.response.data.error)
+                                //alert(res.data.response.data.error)
+                                showToast(res.data.response.data.error, ToastType.DANGER)
                                 this.props.navigation.navigate('HomeScreen')
                             }
                         } else {
@@ -46,8 +49,9 @@ class QRScanner extends Component {
                     },
                     FailureCallback: res => {
                         //alert("Something went wrong! Please try again")
-                        alert(res.data.response.data.error)
+                        //alert(res.data.response.data.error)
                         //alert(res.data.Data)
+                        showToast(res.data.response.data.error, ToastType.DANGER)
                         this.props.navigation.navigate('BeverageScreen')
                     }
                 })
@@ -71,6 +75,22 @@ class QRScanner extends Component {
                         SuccessCallback: res => {
                             //console.log(res)
                             if (res.data) {
+                                let start = new Date();
+                                let hours = start.getHours(), minutes = start.getMinutes(), AMPM = ""
+                                if (hours > 12) {
+                                    AMPM = "PM"
+                                } else {
+                                    AMPM = "AM"
+                                }
+                                let time = hours + ":" + minutes + " " + AMPM
+                                if (paramsData.data.Slot == 1) {
+                                    AsyncStorage.setItem('Tea1', 'Tea/Coffee 1');
+                                    AsyncStorage.setItem('Tea1Time', time);
+                                }
+                                else if (paramsData.data.Slot == 2) {
+                                    AsyncStorage.setItem('Tea2', 'Tea/Coffee 2');
+                                    AsyncStorage.setItem('Tea2Time', time);
+                                }
                                 alert("QRCode Scan successfully")
                                 this.props.navigation.navigate('HomeScreen')
                             } else {
@@ -79,8 +99,9 @@ class QRScanner extends Component {
                             }
                         },
                         FailureCallback: res => {
-                            alert("Sorry! You have already taken Tea/Coffee for this slot!")
+                            //alert("Sorry! You have already taken Tea/Coffee for this slot!")
                             //alert(res.data.Data)
+                            showToast("Sorry! You have already taken Tea/Coffee for this slot!", ToastType.DANGER)
                             this.props.navigation.navigate('BeverageScreen')
                         }
                     })
@@ -112,19 +133,19 @@ class QRScanner extends Component {
                             }
                         },
                         FailureCallback: res => {
-                            alert("Something went wrong! Please try again")
-                            //alert(res.data.Data)
+                            //alert("Something went wrong! Please try again")
+                            showToast("Something went wrong! Please try again later", ToastType.DANGER)
                             this.props.navigation.navigate('BeverageScreen')
                         }
                     })
                 }
                 else {
-                    alert("Something went wrong! Please try again")
+                    alert("Something went wrong! Please try again later")
                     this.props.navigation.navigate('BeverageScreen')
                     return
                 }
 
-            } 
+            }
             else {
                 alert('Something went wrong')
                 this.props.navigation.navigate('BeverageScreen')
@@ -294,7 +315,7 @@ const mapActionCreators = {
 
 const mapStateToProps = state => {
     return {
-
+        beverageMSG: state.beverage.beverageData
     };
 };
 export default connect(

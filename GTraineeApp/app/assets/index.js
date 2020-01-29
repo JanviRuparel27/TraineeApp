@@ -93,7 +93,7 @@ import breakfast from './breakfast.png';
 import floorMap from './floor_map.png';
 import snacks from './snacks.png';
 import tea from './tea.png';
-
+import iconScanned from './ic_scanned.png'
 
 export {
     Gnews,
@@ -187,5 +187,6 @@ export {
     holidaylistIcon,
     imageNews,
     nointernetIcon,
-    noDataFound
+    noDataFound,
+    iconScanned
 };

@@ -1,25 +1,46 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import {Container, Content} from "native-base";
-import {MainHeader} from "app/Component";
-import {notificaiton, left} from 'app/assets'
-import {View, Text} from "react-native";
-import {TextView} from 'app/Component';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Container, Content } from "native-base";
+import { MainHeader } from "app/Component";
+import { notificaiton, left } from 'app/assets'
+import { View, Text } from "react-native";
+import { TextView } from 'app/Component';
 import styles from './PinViewSceenStyle';
 import PinView from 'app/Component/PinView';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class PinViewScreen extends Component {
-    handleOtp = (otp) => {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+            confirmResult:null
+        }
+    }
+    
+   
+    handleOtp = async(otp) => {
         //alert(otp+"alert")
-        this.props.navigation.navigate('ChangePasswordScreen',{"isForgot":true})
+        //if(this.state.confirmResult!=null){
+            var confirmResult = AsyncStorage.getItem('ConfirmResult')
+            confirmResult.confirm(otp)
+                    .then(user => {
+                        //alert('opt is true')
+                        this.props.navigation.navigate('ChangePasswordScreen', { "isForgot": true })
+                    }
+                    )
+                .catch(error => alert('opt is not true'))
+        //}
+        //this.props.navigation.navigate('ChangePasswordScreen', { "isForgot": true })
+        
     }
     render() {
         return (
             <Container>
-                <MainHeader leftIcon={left} bodyContent={'Verify PIN'} 
-                  backAction={() => {
-                    this.props.navigation.goBack()
-                }}
+                <MainHeader leftIcon={left} bodyContent={'Verify PIN'}
+                    backAction={() => {
+                        this.props.navigation.goBack()
+                    }}
                 />
                 <Content>
                     <View style={styles.container}>
@@ -27,7 +48,7 @@ class PinViewScreen extends Component {
                             style={styles.textColor1}>{'6'}</TextView> {'Digit PIN'} </TextView>
                     </View>
                     <View>
-                        <PinView handleOtp={this.handleOtp} navigation={this.props.navigation}/>
+                        <PinView handleOtp={this.handleOtp} navigation={this.props.navigation} />
                     </View>
 
                 </Content>

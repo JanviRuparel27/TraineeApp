@@ -16,8 +16,9 @@ class BeverageScreen extends Component {
         this.state = {
             flatListData: [
                 { id: '1', title: 'Breakfast', image: breakfast },
-                { id: '2', title: 'Tea', image: tea },
-                { id: '3', title: 'Snacks', image: snacks },
+                { id: '2', title: 'Tea/Coffee 1', image: tea },
+                { id: '3', title: 'Tea/Coffee 2', image: tea },
+                { id: '4', title: 'Snacks', image: snacks },
             ],
             flag: null,
             teaTime: [
@@ -26,8 +27,26 @@ class BeverageScreen extends Component {
             ],
             radioSelected: null,
             selectedRadioName:null,
-            IsTea:null
+            IsTea:null,
+            teatime1:null,
+            tea1:null,
+            teatime2:null,
+            tea2:null
         }
+    }
+
+    componentDidMount= async() => {
+        const teatime1 = await AsyncStorage.getItem('Tea1Time');
+        const tea1 = await AsyncStorage.getItem('Tea1');
+        const teatime2 = await AsyncStorage.getItem('Tea2Time');
+        const tea2 = await AsyncStorage.getItem('Tea2');
+        // console.log(teatime," ", teaSlot)
+        this.setState({
+            teatime1:teatime1,
+            tea1:tea1,
+            teatime2:teatime2,
+            tea2:tea2
+        })
     }
     handleSelectClick = (item) => {
         this.setState({
@@ -44,12 +63,20 @@ class BeverageScreen extends Component {
         })
     }
 
-    selectedItemTea = () => {
+    selectedItemTea1 = () => {
         //alert(this.state.IsTea)
         //let IsTea = this.state.IsTea
         let IsTea = 1,
         IsSnacks = 0,
-        Slot = this.state.IsTea
+        Slot = 1
+        this.submitBeverage(IsSnacks,IsTea,Slot)
+    }
+    selectedItemTea2 = () => {
+        //alert(this.state.IsTea)
+        //let IsTea = this.state.IsTea
+        let IsTea = 1,
+        IsSnacks = 0,
+        Slot = 2
         this.submitBeverage(IsSnacks,IsTea,Slot)
     }
     selectedItemBreakfast = () => {
@@ -77,7 +104,7 @@ class BeverageScreen extends Component {
     }
     
     render() {
-        const { flatListData, flag, teaTime, radioSelected, selectedRadioName } = this.state
+        const { flatListData, flag, teaTime, radioSelected, selectedRadioName, tea1, teatime1, teatime2, tea2 } = this.state
         return (
             <Container style={styles.container}>
                 <MainHeader bodyContent={'Beverages'} leftIcon={left} 
@@ -90,18 +117,23 @@ class BeverageScreen extends Component {
                         <View style={{ alignItems: 'center', margin: 20 }}>
                             <TextView style={styles.textStyle}>{'Please Select Your Menu'}</TextView>
                         </View>
+                        <View style={{alignItems:'center' , justifyContent:'center'}}>
                         <FlatList
                             showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}
                             contentContainerStyle={styles.flatContainerStyle}
                             style={{ marginTop: 10 }}
-                            numColumns={3}
+                            numColumns={2}
                             data={flatListData}
                             renderItem={({ item }) =>
-                                <BeverageItemView item={item} selectedValue={flag} onItemClick={(e) => this.handleSelectClick(item)} />
+                                <BeverageItemView 
+                                teatime1={teatime1} tea1={tea1} teatime2={teatime2} tea2={tea2}
+                                item={item} selectedValue={flag} onItemClick={(e) => this.handleSelectClick(item)} />
                             }
                         />
+                        </View>
+                     
                     </View>
-                    {
+                    {/* {
                         flag == 'Tea' &&
                         <View style={styles.outerView}>
                             <View style={{ alignItems: 'center', margin: 20 }}>
@@ -126,7 +158,7 @@ class BeverageScreen extends Component {
                                 }
                             </View>
                         </View>
-                    }
+                    } */}
                 </Content>
                 {
                         flag=='Snacks' &&
@@ -143,9 +175,16 @@ class BeverageScreen extends Component {
                         </Footer>
                     }
                     {
-                        flag=='Tea' && radioSelected!=null && 
+                        flag=='Tea/Coffee 1'  && 
                         <Footer style={{ backgroundColor: '#f2f2f2' }}>
-                        <Button full onPress={this.selectedItemTea}
+                        <Button full onPress={this.selectedItemTea1}
+                            style={styles.buttonStyle}><Text style={{ color: 'white' }} > {'Scan'} </Text></Button>
+                        </Footer>
+                    }
+                     {
+                        flag=='Tea/Coffee 2'  && 
+                        <Footer style={{ backgroundColor: '#f2f2f2' }}>
+                        <Button full onPress={this.selectedItemTea2}
                             style={styles.buttonStyle}><Text style={{ color: 'white' }} > {'Scan'} </Text></Button>
                         </Footer>
                     }

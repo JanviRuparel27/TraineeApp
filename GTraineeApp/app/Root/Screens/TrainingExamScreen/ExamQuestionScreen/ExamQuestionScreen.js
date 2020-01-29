@@ -14,7 +14,8 @@ import TimerCountdown from './Timer/TimerCountdown';
 import {answerSubmit} from 'app/store/answerSubmit'
 import {showToast, ToastType} from "app/Utils";
 import {TextView} from 'app/Component';
-let counter = 0
+//let counter = 0
+let ansArr = []
 
 class ExamQuestionScreen extends Component {
     constructor(props) {
@@ -35,7 +36,8 @@ class ExamQuestionScreen extends Component {
             instructions:null,
             isLoading:true,
             taken_time:null,
-            totalTakenTime:null
+            totalTakenTime:null,
+            ansArray:[]
         }
     }
     UNSAFE_componentWillMount = async () => {
@@ -70,7 +72,7 @@ class ExamQuestionScreen extends Component {
                             this.setState({
                                 questions1: res.data.response.data.questions,
                                 totalQuestion:res.data.response.data.questions.length,
-                                totalTakenTime:res.data.response.data.taken_time,
+                                totalTakenTime1:res.data.response.data.taken_time,
                                 totalQuestions:res.data.response.data.total_questions,
                                 totalAttempted:res.data.response.data.total_attempted,
                                 totalCorrectAns:res.data.response.data.total_correct_ans,
@@ -138,7 +140,19 @@ class ExamQuestionScreen extends Component {
     handleSubmitExam = () => {
         //alert(this.state.correctAns + " " + this.state.totalQuestion)
         //console.log(this.state.answerArr, "here")
-        
+    
+        let answerArray = [],counter = 0
+        this.state.questions.map((item)=>{
+            if(item.selectedAns_Id){
+                let obj = {
+                    question_id:item.question_id,
+                    answer_id:item.selectedAns_Id
+                }
+               answerArray.push(obj)
+            }
+        })
+        //alert(JSON.stringify(answerArray))
+
         let endTime = new moment();
         // let sec = endTime.diff(this.state.startTime, 'seconds') 
         // let min = endTime.diff(this.state.startTime, 'minutes')
@@ -161,20 +175,29 @@ class ExamQuestionScreen extends Component {
             taken_time:hours+":"+minutes+":"+seconds
         })
 
-        let totalAttemptedQuestion = this.state.answerArr.length
+        let totalAttemptedQuestion = answerArray.length
+        //let totalAttemptedQuestion = this.state.answerArr.length
         //console.log(hr+ " "+min+" "+ seconds)
         
-        this.state.questions.map((data)=>{
-            this.state.answerArr.map((item) => {
-                if(item.question_id == data.question_id){
-                    if(item.answer_id == data.correct_answer){
-                        // console.log(item.questionId,"questionId")
-                        // console.log(data.question_id," data questionId")
-                        counter = counter+1
-                    }
-                }
-            })
+        // this.state.questions.map((data)=>{
+        //     this.state.answerArr.map((item) => {
+        //         if(item.question_id == data.question_id){
+        //             if(item.answer_id == data.correct_answer){
+        //                 // console.log(item.questionId,"questionId")
+        //                 // console.log(data.question_id," data questionId")
+        //                 counter = counter+1
+        //             }
+        //         }
+        //     })
             
+        // })
+
+        this.state.questions.map((data)=>{ 
+            if(data.selectedAns_Id){
+                if(data.correct_answer == data.selectedAns_Id){
+                    counter = counter+1
+                }
+            }
         })
         // console.log(counter, "counter")
         // console.log(this.state.timeObj,"timeObj")
@@ -184,7 +207,8 @@ class ExamQuestionScreen extends Component {
             correctAns:counter,
             totalQuestion:this.state.totalQuestion,
             timeObj:timeObj,
-            totalAttemptedQuestion:totalAttemptedQuestion
+            totalAttemptedQuestion:totalAttemptedQuestion,
+            ansArr:answerArray
         }
 
         this.submitAnswer(resultObj)
@@ -192,6 +216,9 @@ class ExamQuestionScreen extends Component {
     }
 
     submitAnswer = async(resultObj) => {
+       // alert(JSON.stringify(resultObj.ansArr))
+       // this.props.navigation.navigate('ResultScreen',{params:resultObj})
+
         try {
             var getToken = await AsyncStorage.getItem('Token');
             var getUserId = await AsyncStorage.getItem('UserId');
@@ -205,7 +232,7 @@ class ExamQuestionScreen extends Component {
             "user_id": getUserId,
             "training_id": this.state.trainingId, 
             "assessment_id": this.state.assesmentId,
-            "questions": this.state.answerArr,
+            "questions": resultObj.ansArr,
             "taken_time":this.state.taken_time,
             }
 
@@ -243,9 +270,34 @@ class ExamQuestionScreen extends Component {
     //     // do not forget to bind getData in constructor
     //     console.log(val);
     // }
-    handleSubmitCount = (ansArr) => {
-        //console.log(ansArr)
-        this.setState({ answerArr:ansArr })
+    handleSubmitCount = (radioObj, questionId) => {
+        const {questions}= this.state;
+        //console.log(radioObj,questionId)
+        questions.find(item => item.question_id == questionId).selectedAns_Id = radioObj.id
+       // console.log(questions)
+        // this.setState({ answerArr:ansArr })
+        
+        // if (ansArr.length > 0) {
+        //     // ansArr.find(item => item.question_id == this.state.question_id).answer_id = item.id
+        //     if (ansArr.some(e => e.question_id === this.state.question_id)) {
+        //         ansArr.find(item => item.question_id == this.state.question_id).answer_id = item.id
+              
+        //     } else {
+        //         const ansObj = {
+        //             question_id: this.state.question_id,
+        //             answer_id: item.id
+        //         }
+        //         ansArr.push(ansObj)
+               
+        //     }
+        // } else {
+        //     const ansObj = {
+        //         question_id: this.state.question_id,
+        //         answer_id: item.id
+        //     }
+        //     ansArr.push(ansObj)
+           
+        // }
     }
 
     // handleTimeChange = (time) => {
@@ -254,12 +306,12 @@ class ExamQuestionScreen extends Component {
     //     })
     // }
 
-    componentWillUnmount(){
-        counter = 0
-    }
+    // componentWillUnmount(){
+    //     counter = 0
+    // }
 
     render() {
-        const {noDataFound,questions, isLoading , startExam, instructions, totalTakenTime, totalQuestions,questions1, totalAttempted, totalCorrectAns} = this.state;
+        const {noDataFound,questions, isLoading , startExam, instructions, totalTakenTime,totalTakenTime1, totalQuestions,questions1, totalAttempted, totalCorrectAns} = this.state;
         // const timer = this.props.navigation.state.params.time;
         const result = this.props.navigation.state.params.result
         if(!result){
@@ -349,20 +401,22 @@ class ExamQuestionScreen extends Component {
                      {
                          this.props.loading ? <Loader /> :
                             noDataFound ? <NoDataFoundView navigation={this.props.navigation} /> :
-                            <View>
-                                <TextView style={styles.fontStyle}>{'Total correct Ans :'}<TextView style={styles.fontStyle1}>{totalCorrectAns}</TextView></TextView>
+                            <View style={{flex:1}}>
+                                 <TextView style={styles.fontStyle}>{'Total correct Ans :'}<TextView style={styles.fontStyle1}>{totalCorrectAns}</TextView></TextView>
                                 <TextView style={styles.fontStyle}>{'Total Attempted: '}<TextView style={styles.fontStyle1}>{totalAttempted}</TextView></TextView>
                                 <TextView style={styles.fontStyle}>{'Total Questions: '}<TextView style={styles.fontStyle1}>{totalQuestions}</TextView></TextView>
-                                <TextView style={styles.fontStyle}>{'Taken Time :'}<TextView style={styles.fontStyle1}>{totalTakenTime}</TextView></TextView>
+                                <TextView style={styles.fontStyle}>{'Taken Time :'}<TextView style={styles.fontStyle1}>{totalTakenTime1}</TextView></TextView>
+                            <Content>
                                 <FlatList
                                     data={questions1}
-                                    contentContainerStyle={{ paddingBottom: 150 }}
+                                    //contentContainerStyle={{ marginBottom: 150 }}
                                     contentInsetAdjustmentBehavior="automatic"
                                     contentInset={{top: 0, bottom: 20, left: 0, right: 0}}
                                     renderItem={({ item }) =>
                                         <ItemView item={item} result={true}/>
                                     }
                                 />
+                            </Content>
                             </View>
                     }
                 </Container>
