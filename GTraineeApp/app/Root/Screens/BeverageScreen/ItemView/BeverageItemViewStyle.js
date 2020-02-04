@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
     textStyle1: {
         marginTop: 12,
         color: color._018CCA
+    },
+    textStyle2: {
+        color: color._018CCA
     }
 });
 

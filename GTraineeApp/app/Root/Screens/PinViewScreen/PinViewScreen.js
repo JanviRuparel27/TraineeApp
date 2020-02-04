@@ -24,10 +24,16 @@ class PinViewScreen extends Component {
    async componentDidMount(){
     // if(Platform.OS === 'android'){
         var UserMobNumber = await AsyncStorage.getItem('UserMobNumber')
+        //console.log(UserMobNumber)
         firebase.auth().signInWithPhoneNumber(UserMobNumber)
-        .then(confirmResult => this.setState({
+        .then(confirmResult => 
+            {
+                //console.log(confirmResult)
+            this.setState({
             confirmResult:confirmResult
-        }))
+            })
+            }
+        )
         .catch(error => { alert(error.message) })
     // }
   
@@ -53,7 +59,8 @@ class PinViewScreen extends Component {
                     this.setState({
                         isLoading:false
                     })
-                    alert('opt is not true')})
+                    alert('OTP is not valid')
+                })
         }
         //this.props.navigation.navigate('ChangePasswordScreen', { "isForgot": true })
         // }

@@ -33,17 +33,25 @@ class BeverageScreen extends Component {
             teatime2:null,
             tea2:null,
             breakfastFlag: null,
-            breakfastTime: null
+            breakfastTime: null,
+            SnackCounter:null,
+            SnackTime:null,
+            SnacksFlag:null
         }
     }
 
     componentDidMount= async() => {
+        
+        this._onFocusListener =  this.props.navigation.addListener('didFocus', async (payload) => {
         const breakfastFlag = await AsyncStorage.getItem('Breakfast');
         const breakfastTime = await AsyncStorage.getItem('BreakfastTime');
         const teatime1 = await AsyncStorage.getItem('Tea1Time');
         const tea1 = await AsyncStorage.getItem('Tea1');
         const teatime2 = await AsyncStorage.getItem('Tea2Time');
         const tea2 = await AsyncStorage.getItem('Tea2');
+        const SnackTime = await AsyncStorage.getItem('SnackTime');
+        const SnackCounter = await AsyncStorage.getItem('SnackCounter');
+        const SnacksFlag = await AsyncStorage.getItem('SnacksFlag');
         // console.log(teatime," ", teaSlot)
         this.setState({
             teatime1:teatime1,
@@ -51,8 +59,13 @@ class BeverageScreen extends Component {
             teatime2:teatime2,
             tea2:tea2,
             breakfastFlag: breakfastFlag,
-            breakfastTime: breakfastTime
+            breakfastTime: breakfastTime,
+            SnackCounter:SnackCounter,
+            SnackTime:SnackTime,
+            SnacksFlag:SnacksFlag,
+            flag:null
         })
+    })
     }
     handleSelectClick = (item) => {
         this.setState({
@@ -108,9 +121,8 @@ class BeverageScreen extends Component {
             alert('something went wrong')
         }
     }
-    
     render() {
-        const { flatListData, flag, teaTime, radioSelected, selectedRadioName, tea1, teatime1, teatime2, tea2 , breakfastFlag , breakfastTime } = this.state
+        const { flatListData, flag, teaTime, radioSelected, selectedRadioName, tea1, teatime1, teatime2, tea2 , breakfastFlag , breakfastTime,SnackCounter, SnackTime,SnacksFlag } = this.state
         return (
             <Container style={styles.container}>
                 <MainHeader bodyContent={'Beverages'} leftIcon={left} 
@@ -138,6 +150,10 @@ class BeverageScreen extends Component {
                                 tea2={tea2} 
                                 breakfastFlag={breakfastFlag} 
                                 breakfastTime={breakfastTime}
+                                SnackCounter={SnackCounter}
+                                SnackTime={SnackTime}
+                                SnacksFlag={SnacksFlag}
+                                extraData={SnackCounter}
                                 item={item} selectedValue={flag} onItemClick={(e) => this.handleSelectClick(item)} />
                             }
                         />

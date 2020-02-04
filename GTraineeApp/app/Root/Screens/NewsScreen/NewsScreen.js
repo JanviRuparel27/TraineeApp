@@ -5,7 +5,8 @@ import { MainHeader } from "app/Component";
 import { notificaiton, left } from 'app/assets';
 import { View, Text, FlatList } from "react-native";
 import { getAllNewsList } from 'app/store/newsList'
-import { Loader, TextView } from "app/Component";
+import { Loader, TextView  } from "app/Component";
+import NoDataFoundView from 'app/Component/NoDataFoundView';
 import ItemView from './ItemView';
 import styles from './NewsScreenStyle';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -13,6 +14,16 @@ import base64 from 'react-native-base64'
 
 class NewsScreen extends Component {
 
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+            allNewsList: [],
+            noDataFound: false
+
+        }
+    }
+    
     componentDidMount = async () => {
 
         try {
@@ -25,14 +36,36 @@ class NewsScreen extends Component {
             this.props.getAllNewsList(null, this.props,newsHeader, {
                 SuccessCallback: res => {
                     // console.log(res)
+                    //console.log('SuccessCallback')
+                    if (res.data) {
+                        if(res.data.Data){
+                            this.setState({
+                                allNewsList: res.data.Data
+                            })
+                        }
+                        else{
+                            this.setState({
+                                noDataFound: true
+                            })
+                        }
+                    }
+                     else {
+                        this.setState({
+                            noDataFound: true
+                        })
+                    }
                 },
                 FailureCallback: res => {
-                    // console.log(res)
+                    //console.log('FailureCallback')
+                    this.setState({
+                        noDataFound: true
+                    })
                     alert('something went wrong')
                 }
             })
             
         } catch (error) {
+            //console.log('catch')
             alert(error.message);
         }
 
@@ -106,9 +139,12 @@ class NewsScreen extends Component {
                     //     </Tab>
                     // </Tabs>
 
+                    this.state.noDataFound ? 
+                    <NoDataFoundView navigation={this.props.navigation} /> :
+
                     <Tabs tabBarUnderlineStyle={styles.tabStyle} renderTabBar={() => <ScrollableTab />} >
                         {
-                            this.props.allNewsList.Data.map((data)=>(
+                            this.state.allNewsList.map((data)=>(
                                 <Tab heading={data.CategoryName}
                                 tabStyle={styles.tabBlockStyle}
                                 activeTabStyle={styles.activeTabStyle}

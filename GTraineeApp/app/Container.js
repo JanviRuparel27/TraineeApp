@@ -31,7 +31,7 @@ class Containers extends Component {
         });
 
         let todayDate = await AsyncStorage.getItem('TodaysDate');
-
+        //let todayDate = '31/01/2020'
         if(todayDate !== null){
             if(todayDate !== dateFormate(new Date())){
                 AsyncStorage.removeItem('Breakfast')
@@ -40,6 +40,9 @@ class Containers extends Component {
                 AsyncStorage.removeItem('Tea1Time')
                 AsyncStorage.removeItem('Tea2')
                 AsyncStorage.removeItem('Tea2Time')
+                AsyncStorage.removeItem('SnackTime');
+                AsyncStorage.removeItem('SnackCounter');
+                AsyncStorage.removeItem('SnacksFlag');
             }
         }
         else{

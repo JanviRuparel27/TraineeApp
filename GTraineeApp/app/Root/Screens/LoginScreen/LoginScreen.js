@@ -224,9 +224,9 @@ class LoginScreen extends Component {
                             onChangeText={(text) => {
                                 this.setState({ password: text })
                             }} />
-                        <TouchableOpacity onPress={this.handleForgotPassword} style={{ alignItems: 'flex-end' }}>
+                        {/* <TouchableOpacity onPress={this.handleForgotPassword} style={{ alignItems: 'flex-end' }}>
                             <TextView style={styles.rightTextStyle}>{'Forgot Password?'}</TextView>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
                         {this.props.loading ? <Loader loading={this.props.loading} /> :
                             <Button onPress={this.handleLoginSubmit} full rounded

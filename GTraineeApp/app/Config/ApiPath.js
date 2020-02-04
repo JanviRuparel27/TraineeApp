@@ -8,9 +8,11 @@ const UUID = getUuid = () => {
   return newStr
 }
 
-export const APIPath = "http://10.0.1.152:8001/api";
-//export const APIPath = "https://gtdh.thegatewaycorp.com/api";
-export const GNNApiPath = "https://gnnservice.gatewaytechnolabs.com/api"
+//export const APIPath = "http://10.0.1.152:8001/api";
+export const APIPath = "https://gtdh.thegatewaycorp.com/api";
+export const GNNApiPath = "https://gnnservice.thegatewaycorp.com/api";
+//export const GNNApiPath = "https://gnnservice.gatewaytechnolabs.com/api"
+//export const GNNApiPath = 'https://gnnstaging.gatewaytechnolabs.com:4435/api';
 
 const loginHeaders = {
   'Content-Type': 'application/json',

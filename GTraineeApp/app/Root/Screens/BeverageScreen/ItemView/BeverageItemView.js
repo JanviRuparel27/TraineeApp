@@ -12,7 +12,7 @@ export default class BeverageItemView extends Component {
     }
 
     render() {
-        const {item, selectedValue, teatime1,tea1, tea2,teatime2 , breakfastFlag , breakfastTime} = this.props;
+        const {item, selectedValue, teatime1,tea1, tea2,teatime2 , breakfastFlag , breakfastTime,SnackCounter, SnackTime, SnacksFlag} = this.props;
         return (
             // <TouchableOpacity style={styles.container} onPress={() => {
             //     this.props.onItemClick && this.props.onItemClick(item)
@@ -56,6 +56,24 @@ export default class BeverageItemView extends Component {
                 </Card> 
                 </TouchableOpacity>
                 :
+
+                item.title == SnacksFlag ?
+
+                <TouchableOpacity style={styles.container} 
+                onPress={() => {this.props.onItemClick && this.props.onItemClick(item)}}>
+                <Card 
+                style={item.title == selectedValue ?styles.selectedcard :styles.card}
+                >
+                        <Thumbnail small square source={item.image} style={{tintColor: color._018CCA}}/>
+                        <Text style={styles.textStyle} numberOfLines={1}>{item.title}</Text>
+                        <Text style={styles.textStyle2}>{SnackTime}</Text>
+                        <Text style={styles.textStyle2}>{SnackCounter}</Text>
+
+                </Card> 
+                </TouchableOpacity>
+
+                :
+
                 item.title == breakfastFlag ?
 
                 <TouchableOpacity style={styles.container}>
@@ -69,9 +87,10 @@ export default class BeverageItemView extends Component {
 
                 </Card> 
                 </TouchableOpacity>
-                
+
                 :
-                 <TouchableOpacity style={styles.container} onPress={() => {
+
+                <TouchableOpacity style={styles.container} onPress={() => {
                         this.props.onItemClick && this.props.onItemClick(item)
                 }}>
                 <Card 

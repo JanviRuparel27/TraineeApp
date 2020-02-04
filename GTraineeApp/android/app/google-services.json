@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1000741562947-8995m77rqkgcod9j4gb8645r7aistjtc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gtapp",
+            "certificate_hash": "37522e4957d238c6adce7727bb980bb824c0358a"
+          }
+        },
+        {
           "client_id": "1000741562947-19buaacufj11vea1fn6fuhiq3kfvt11d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +46,13 @@
             {
               "client_id": "1000741562947-e78sjm2qbkolmugaurb6pcfhm721rnr6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1000741562947-q7hth5trq6gldmsrhnsblaf2da3e01n3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thegatewaycorp.GTApp"
+              }
             }
           ]
         }

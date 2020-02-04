@@ -49,15 +49,16 @@ class QRScanner extends Component {
                             if (res.data.response.data.message) {
                                 //alert("Taken Breakfast successfully!")
                                 showToast(res.data.response.data.message, ToastType.SUCCESS)
-                                this.props.navigation.navigate('HomeScreen')
+                                this.props.navigation.navigate('BeverageScreen')
                             } else {
                                 //alert(res.data.response.data.error)
                                 showToast(res.data.response.data.error, ToastType.DANGER)
-                                this.props.navigation.navigate('HomeScreen')
+                                this.props.navigation.navigate('BeverageScreen')
                             }
                         } else {
-                            alert('something went wrong')
-                            this.props.navigation.navigate('HomeScreen')
+                            //alert('something went wrong')
+                            showToast('something went wrong', ToastType.DANGER)
+                            this.props.navigation.navigate('BeverageScreen')
                         }
                     },
                     FailureCallback: res => {
@@ -69,7 +70,8 @@ class QRScanner extends Component {
                     }
                 })
             } else {
-                alert("Something went wrong! Please try again")
+                //alert("Something went wrong! Please try again")
+                showToast("Something went wrong! Please try again", ToastType.DANGER)
                 this.props.navigation.navigate('BeverageScreen')
                 return
             }
@@ -98,11 +100,13 @@ class QRScanner extends Component {
                                     AsyncStorage.setItem('Tea2', 'Tea/Coffee 2');
                                     AsyncStorage.setItem('Tea2Time', time);
                                 }
-                                alert("QRCode Scan successfully")
-                                this.props.navigation.navigate('HomeScreen')
+                                //alert("QRCode Scan successfully")
+                                showToast("QRCode Scan successfully", ToastType.SUCCESS)
+                                this.props.navigation.navigate('BeverageScreen')
                             } else {
-                                alert('something went wrong')
-                                this.props.navigation.navigate('HomeScreen')
+                                //alert('something went wrong')
+                                showToast('something went wrong', ToastType.DANGER)
+                                this.props.navigation.navigate('BeverageScreen')
                             }
                         },
                         FailureCallback: res => {
@@ -114,7 +118,8 @@ class QRScanner extends Component {
                     })
                 }
                 else {
-                    alert("Something went wrong! Please try again")
+                    //alert("Something went wrong! Please try again")
+                    showToast('something went wrong', ToastType.DANGER)
                     this.props.navigation.navigate('BeverageScreen')
                     return
                 }
@@ -123,6 +128,7 @@ class QRScanner extends Component {
                 if (e.data == 'BREAKFAST|TEA|SNACK') {
                     var EmployeeId = await AsyncStorage.getItem('EmployeeId');
                     var baseEmpId = base64.encode(EmployeeId)
+                    var counter = await AsyncStorage.getItem('SnackCounter');
                     // var pass = await AsyncStorage.getItem('Password');
                     const beverageHeader = {
                         'Content-Type': 'application/json',
@@ -131,12 +137,19 @@ class QRScanner extends Component {
                     this.props.selectedBeverage(paramsData.data, this.props, beverageHeader, {
                         SuccessCallback: res => {
                             //console.log(res)
+                            let time = this.getTime(); 
+                            counter = JSON.parse(counter) + 1;
                             if (res.data) {
-                                alert("QRCode Scan successfully")
-                                this.props.navigation.navigate('HomeScreen')
+                                //alert("QRCode Scan successfully")
+                                showToast("QRCode Scan successfully", ToastType.SUCCESS)
+                                AsyncStorage.setItem('SnackTime', time);
+                                AsyncStorage.setItem('SnacksFlag', 'Snacks');
+                                AsyncStorage.setItem('SnackCounter', JSON.stringify(counter));
+                                this.props.navigation.navigate('BeverageScreen')
                             } else {
-                                alert('something went wrong')
-                                this.props.navigation.navigate('HomeScreen')
+                                //alert('something went wrong')
+                                showToast('something went wrong', ToastType.DANGER)
+                                this.props.navigation.navigate('BeverageScreen')
                             }
                         },
                         FailureCallback: res => {
@@ -147,14 +160,16 @@ class QRScanner extends Component {
                     })
                 }
                 else {
-                    alert("Something went wrong! Please try again later")
+                   // alert("Something went wrong! Please try again later")
+                    showToast('something went wrong', ToastType.DANGER)
                     this.props.navigation.navigate('BeverageScreen')
                     return
                 }
 
             }
             else {
-                alert('Something went wrong')
+                //alert('Something went wrong')
+                showToast('something went wrong', ToastType.DANGER)
                 this.props.navigation.navigate('BeverageScreen')
             }
         }
@@ -165,8 +180,12 @@ class QRScanner extends Component {
         let hours = start.getHours(), minutes = start.getMinutes(), AMPM = ""
         if (hours > 12) {
             AMPM = "PM"
+            hours = hours - 12
         } else {
             AMPM = "AM"
+        }
+        if(minutes < 10){
+            minutes = '0'+minutes
         }
         let time = hours + ":" + minutes + " " + AMPM
 
