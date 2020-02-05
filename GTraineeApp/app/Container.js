@@ -5,7 +5,7 @@ import Navigation from "./Navigation";
 import NetInfo, { NetInfoSubscription } from "@react-native-community/netinfo";
 import { Loader, NoInternet } from "app/Component";
 import { Container } from 'native-base';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 import firebase from 'react-native-firebase';
 import { dateFormate } from './Constants';
 
@@ -22,6 +22,7 @@ class Containers extends Component {
 
     async componentDidMount() {
         this.checkPermission();
+        this.messageListener();
         // NetInfo.addEventListener('connectionChange', this.handleConnectivityChange);
         this._subscription = NetInfo.addEventListener(state => {
             this.setState({
@@ -62,7 +63,7 @@ class Containers extends Component {
     //3
     async getToken() {
         let fcmToken = await AsyncStorage.getItem('fcmToken');
-        //console.log('fcmToken')
+        console.log('fcmToken', fcmToken)
         //console.log(fcmToken)
         // if (this.validatePhoneNumber()) {
         //     firebase
@@ -82,6 +83,7 @@ class Containers extends Component {
         //   }
         if (!fcmToken) {
             fcmToken = await firebase.messaging().getToken();
+            console.log('fcmToken', fcmToken)
             if (fcmToken) {
                 // user has a device token
                 await AsyncStorage.setItem('fcmToken', fcmToken);
@@ -101,7 +103,39 @@ class Containers extends Component {
         }
     }
 
-   
+    messageListener = async () => {
+
+        this.notificationListener = firebase.notifications().onNotification((notification) => {
+            const { title, body } = notification;
+            this.showAlert(title, body);
+        });
+    
+        this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen) => {
+            const { title, body } = notificationOpen.notification;
+            this.showAlert(title, body);
+        });
+      
+        const notificationOpen = await firebase.notifications().getInitialNotification();
+        if (notificationOpen) {
+            const { title, body } = notificationOpen.notification;
+            this.showAlert(title, body);
+        }
+    
+        this.messageListener = firebase.messaging().onMessage((message) => {
+          console.log(JSON.stringify(message));
+        });
+      }
+    
+      showAlert = (title, message) => {
+        Alert.alert(
+          title,
+          message,
+          [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ],
+          {cancelable: false},
+        );
+      }
 
     render() {
         return (

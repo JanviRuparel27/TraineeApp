@@ -78,6 +78,7 @@ class LoginScreen extends Component {
     }
 
     handleLoginSubmit = async () => {
+        var FCMToken = await AsyncStorage.getItem('fcmToken');
         const token = "f2iMxgFjCjg:APA91bGxI52jMgTMnARrckA6nzswHE6URbTELnf4dMmEWWFD3oADQoC5JCyEBoQVQY_mrtS44su8t3NoBOu32cAuR3c4JlEHNIYQAjx3WSnE2xKUZIYhad0wqeY7PRUzBWSl6OZRF6Bu"
         if (this.validateForm()) {
             let params = {
@@ -85,7 +86,7 @@ class LoginScreen extends Component {
                 provider: Platform.OS,
                 email: this.state.username,
                 password: this.state.password,
-                UDID: token
+                UDID: FCMToken
             };
             this.props.loginUser(params, this.props, {
                 SuccessCallback: res => {
